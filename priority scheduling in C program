@@ -1,0 +1,46 @@
+//PRIORITY SCHEDULING 
+#include <stdio.h>
+void swap(int *a,int *b)
+{
+    int temp=*a;
+    *a=*b;
+    *b=temp;
+}
+int main()
+{
+    int n;
+    printf("Enter Number of Processes: ");
+    scanf("%d",&n);
+    int bt[n],pri[n],index[n];
+    printf("Enter process id:");
+    for(int i=0;i<n;i++){
+        scanf("%d",&index[i]);
+    }
+    printf("Enter burst time:");
+    for(int i=0;i<n;i++){
+        scanf("%d",&bt[i]);
+    }
+ printf("Enter priority value:");
+ for(int i=0;i<n;i++){
+     scanf("%d",&pri[i]);
+ }
+ for(int i=0;i<n;i++){
+    int  m=i;
+     for(int j=i;j<n;j++){
+         if(pri[j]>pri[i]){
+             pri[i]=pri[j];
+             m=j;
+         }
+     }
+      swap(&pri[i], &pri[m]);
+        swap(&bt[i], &bt[m]);
+ }
+
+  printf("Process Id     Burst Time   Wait Time    TurnAround Time\n");
+    int wait_time=0;
+    for(int i=0;i<n;i++)
+    {
+        printf("P%d\t        %d\t\t          %d\t           %d\n",index[i],bt[i],wait_time,wait_time + bt[i]);
+        wait_time += bt[i];
+    }
+}
